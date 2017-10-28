@@ -1,0 +1,65 @@
+<!--
+ArchHacks Workshop on Web Mapping
+October 28, 2017
+Mollie Webb
+molliewebb@wustl.edu
+
+This workshop includes tips on using some
+popular web mapping APIs and platforms
+
+Leaflet
+http://leafletjs.com/
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Leaflet Example 1</title>
+
+<!-- External references, stylesheets, libraries -->
+
+<!-- Link to Leaflet stylesheet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"/>
+
+</head>
+
+<body>
+<!-- Link to Leaflet Javascript Library -->
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+
+<!-- Creates map div-->
+<div id="map" style="width: 705px; height: 375px"></div>
+
+
+<script>
+// Creates the map element
+var mymap = L.map('map').setView([38.6485, -90.3074], 15);
+
+// Creates the Open Street Map basemap with set zoom levels and attribution
+var basemapUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var basemapAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+var basemap = new L.TileLayer(basemapUrl, {minZoom: 2, maxZoom: 15, attribution: basemapAttrib});
+
+//Creates Stamen Watercolor basemap
+// var basemapUrl='https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}';
+// var basemapAttrib='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+// var basemap = new L.TileLayer(basemapUrl, {minZoom: 2, maxZoom: 15, attribution: basemapAttrib, ext: 'png'});
+
+// Adds basemap to the map
+mymap.addLayer(basemap);
+
+// Add a custom marker to the map
+var hillmanPt = L.marker([38.646810, -90.304695]).addTo(mymap);
+
+// Add a pop up to the marker
+// hillmanPt.bindPopup("Welcome to ArchHacks 2017!");
+
+// Augument the pop up with HTML tags
+// hillmanPt.bindPopup("<h3>Welcome to ArchHacks 2017</h3><p>Washington University in St. Louis<br>" + 
+//   '<a href="https://archhacks.io/">View Schedule</a>' + "</p>");
+
+</script>
+
+</body>
+
+</html>
