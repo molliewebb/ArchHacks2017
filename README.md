@@ -20,6 +20,8 @@ molliewebb@wustl.edu<br>
 * [National Weather Service Data](http://www.nws.noaa.gov/gis/services.html)
 * [US Geological Survey Data](https://viewer.nationalmap.gov/services/)
 * [NOAA Web Services](https://nowcoast.noaa.gov/help/#!section=mapservices)
+* [US Fish and Wildlife Service](https://gis.fws.gov/arcgis/rest/services)
+* [US Fish and Wildlife Service - National Wetlands Inventory](https://www.fws.gov/wetlands/data/web-map-services.html)
 
 ## Web mapping using Javascript and Leaflet ##
 
