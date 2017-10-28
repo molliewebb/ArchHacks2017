@@ -12,7 +12,7 @@ molliewebb@wustl.edu<br>
 ### St. Louis and Missouri ###
 * [St. Louis City Web Services Directory](http://stlgis.stlouis-mo.gov/arcgis/rest/services)
 * [St. Louis County Web Services Directory](http://maps.stlouisco.com/arcgis/rest/services)
-* [Missour (MSDIS) Web Services](http://msdis.missouri.edu/webservices/mapping/index.html)
+* [Missouri (MSDIS) Web Services](http://msdis.missouri.edu/webservices/mapping/index.html)
 
 ### United States ###
 * [Environmental Protection Agency](https://geodata.epa.gov/arcgis/rest/services)
