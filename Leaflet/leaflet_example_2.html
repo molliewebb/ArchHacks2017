@@ -1,0 +1,131 @@
+<!--
+ArchHacks Workshop on Web Mapping
+October 28, 2017
+Mollie Webb
+molliewebb@wustl.edu
+
+This workshop includes tips on using some
+popular web mapping APIs
+
+Leaflet
+http://leafletjs.com/
+
+Leaflet Search Plugin (install locally)
+https://github.com/stefanocudini/leaflet-search
+
+Example of Leaflet Seach Plugin Using Google Geocoding
+http://labs.easyblog.it/maps/leaflet-search/examples/geocoding-google.html
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Leaflet Example 2</title>
+
+<!-- External references, stylesheets, libraries -->
+
+<!-- Link to Leaflet stylesheet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"/>
+
+<!-- Link to Leaflet Search Plugin -->
+<link rel="stylesheet" href="./leaflet-search-master/src/leaflet-search.css" />
+
+<style>
+h1{
+  color: navy;
+}
+.search-input {
+  font-family:Courier
+}
+.search-input,
+.leaflet-control-search {
+  max-width:400px;
+}
+</style>
+
+</head>
+
+<body>
+<!-- Link to Leaflet Javascript Library -->
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+
+<!-- Link to Esri Leaflet Library -->
+<script src="https://unpkg.com/esri-leaflet@2.0.4/dist/esri-leaflet.js"></script>
+
+<!-- Link to Google API for geocoding -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
+
+<!-- Location of leaflet search pluging files (local) -->
+<script src="./leaflet-search-master/src/leaflet-search.js"></script>
+
+
+<h1> St. Louis County - Do I live in a floodplain? </h1>
+
+<!-- Creates map div-->
+<div id="map" style="width: 705px; height: 375px"></div>
+
+
+<script>
+// Creates the map element
+var mymap = L.map('map').setView([38.6485, -90.3074], 10);
+
+// Creates the Open Street Map Black and White basemap with set zoom levels and attribution
+var basemapUrl='http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png';
+var basemapAttrib='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+var basemap = new L.TileLayer(basemapUrl, {minZoom: 2, maxZoom: 18, attribution: basemapAttrib});
+
+// Adds basemap to the map
+mymap.addLayer(basemap);
+
+var floodplain_special = L.esri.featureLayer({
+ url: 'http://maps.stlouisco.com/arcgis/rest/services/OpenData/OpenData/FeatureServer/9',
+ style: function (feature){
+  if(feature.properties.FLOODWAY === 'FLOODWAY'){
+    return {color: 'navy', weight: 2};
+  } else {
+    return {color: 'DodgerBlue', weight: 2}
+  }
+ }
+}).addTo(mymap);
+
+// The floodplain layer for entire US could be brought in, but will impact performance/page load time
+// var floodplain_other = L.esri.featureLayer({
+//  url: 'https://hazards.fema.gov/gis/nfhl/rest/services/public/NFHL/MapServer/28'
+// }).addTo(mymap);
+
+var geocoder = new google.maps.Geocoder();
+
+function googleGeocoding(text, callResponse)
+{
+  geocoder.geocode({address: text}, callResponse);
+}
+
+function formatJSON(rawjson)
+{
+  var json = {},
+    key, loc, disp = [];
+  for(var i in rawjson)
+  {
+    key = rawjson[i].formatted_address;
+    
+    loc = L.latLng( rawjson[i].geometry.location.lat(), rawjson[i].geometry.location.lng() );
+    
+    json[ key ]= loc; //key,value format
+  }
+  return json;
+}
+
+mymap.addControl( new L.Control.Search({
+    sourceData: googleGeocoding,
+    formatData: formatJSON,
+    markerLocation: true,
+    autoType: false,
+    autoCollapse: true,
+    minLength: 2
+  }) );
+
+</script>
+
+</body>
+
+</html>
